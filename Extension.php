@@ -8,7 +8,7 @@
 
 namespace Bearlikelion\TwigTimeTools;
 
-class Time extends \Twig_Extension
+class Extension extends \Twig_Extension
 {
 	/**
 	 * Define Twig filters
