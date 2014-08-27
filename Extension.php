@@ -8,7 +8,6 @@
 
 namespace Bearlikelion\TwigTimeTools;
 
-/** @class Time Twig extension */
 class Time extends \Twig_Extension
 {
 	/**
