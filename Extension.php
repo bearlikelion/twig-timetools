@@ -6,62 +6,56 @@
 * @Last Modified time: 2014-05-07 15:24:42
 */
 
-namespace Bearlikelion\TwigJsonTools;
+namespace Bearlikelion\TwigTimeTools;
 
-class Extension extends \Twig_Extension
+/** @class Time Twig extension */
+class Time extends \Twig_Extension
 {
 	/**
 	 * Define Twig filters
-	 * @example
-	 * {{ string|json_decode }}
-	 * {{ string|json_encode }}
 	 * @return array
 	 */
 	public function getFilters()
 	{
 		return array(
-			new \Twig_SimpleFilter('json_decode', array($this, 'jsonDecode'))
+			new \Twig_SimpleFilter('ago', array($this, 'elapsedTime')),
 		);
 	}
 
 	/**
-	 * Define Twig functions
-	 * @example
-	 * {{ json_decode(string) }}
-	 * {{ json_encode(string) }}
-	 * @return array
-	 */
-	public function getFunctions()
-	{
-		return array(
-			'json_decode'  => new \Twig_Function_Method($this, 'jsonDecode'),
-			'json_encode' => new \Twig_Function_Method($this, 'jsonEncode')
-		);
-	}
-
-	/**
-	 * Decode JSON string
-	 * @param  string $string
-	 * @return object
-	 */
-	public function jsonDecode($string)
-	{
-		return json_decode($string);
-	}
-
-	/**
-	 * Encode an object or array to JSON
-	 * @param  array $array
+	 * Converts a timestamp to time ago
+	 * @param  integer $time
 	 * @return string
 	 */
-	public function jsonEncode($array)
+	public function elapsedTime($time)
 	{
-		return json_encode($array);
+		if (is_string($time)) $time = strtotime($time);
+
+		$etime = time() - $time;
+
+		if ($etime < 1) return 'Just Now';
+
+		$a = [
+			12 * 30 * 24 * 60 * 60  =>  'year',
+			30 * 24 * 60 * 60       =>  'month',
+			24 * 60 * 60            =>  'day',
+			60 * 60                 =>  'hour',
+			60                      =>  'minute',
+			1                       =>  'second'
+		];
+
+		foreach ($a as $secs => $str) {
+			$d = $etime / $secs;
+			if ($d >= 1) {
+				$r = round($d);
+				return $r . ' ' . $str . ($r > 1 ? 's' : '') . ' ago';
+			}
+		}
 	}
 
 	/** Extension name */
 	public function getName()
 	{
-		return 'json_extension';
+		return 'time_extension';
 	}
 }

@@ -1,8 +1,8 @@
 {
-	"name": "bearlikelion/twig-jsontools",
+	"name": "bearlikelion/twig-timetools",
 	"type": "library",
-	"description": "A Twig extension to encode and decode json.",
-	"keywords": ["twig", "extension", "json"],
+	"description": "A Twig extension to convert timestamps to readable seconds ago.",
+	"keywords": ["twig", "extension", "time"],
 	"license": "MIT",
 	"authors": [
 		{

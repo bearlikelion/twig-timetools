@@ -1,6 +1,6 @@
-# Twig Json Tools
+# Twig Time Tools
 
-A simple twig extension to provide json encode and decode filters and functions for Twig.
+A simple twig extension to provide a filter for *ago* to convert timestamps to readable X minutes ago.
 
 **Requirements:**
 
@@ -9,20 +9,20 @@ A simple twig extension to provide json encode and decode filters and functions 
 ## Installation
 ```
 "require": {
-	"bearlikelion/twig-jsontools": "dev-master",
+	"bearlikelion/twig-timetools": "dev-master",
 }
 ```
 
 ## Example
 ```PHP
 $twig = new Twig_Environment(new Twig_Loader_Filesystem('Views'));
-$twig->addExtension(new Bearlikelion\TwigJsonTools\Extension);
+$twig->addExtension(new Bearlikelion\TwigTimeTools\Extension);
 ```
 
 ```html
 <html>
 	<body>
-		{{ json_decode(json.object) }}
+		{{ timestamp|ago }}
 	</body>
 </html>
 ```
